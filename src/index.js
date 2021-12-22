@@ -1,17 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { CssBaseline } from '@mui/material';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import { ThemeProvider } from '@mui/material';
+import myTheme from './themes/myTheme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={myTheme}>
+      <CssBaseline />
+      <div className="main" style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+
+        <div className="topSpacer" style={{
+          flex: '2',
+          // border: '1px solid red'
+        }} />
+
+          <App />
+
+        <div className='bottomSpacer' style={{
+            flex: '3',
+            // border: '1px solid red'
+          }} />
+
+      </div>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
