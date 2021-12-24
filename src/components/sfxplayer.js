@@ -1,3 +1,4 @@
+import padLayout from "../layouts/padlayout";
 import Credits from "./credits";
 import DrumPad from "./drumpad";
 import Display from "./display";
@@ -23,48 +24,17 @@ import { Info } from "@mui/icons-material";
 
 import { useEffect, useState, useCallback } from "react";
 
-const buttonHeight = 80;
-const padLayout = [
-  {
-    key: "Q",
-    sample: "1up",
-  },
-  {
-    key: "W",
-    sample: "block",
-  },
-  {
-    key: "E",
-    sample: "coin",
-  },
-  {
-    key: "A",
-    sample: "death",
-  },
-  {
-    key: "S",
-    sample: "jump",
-  },
-  {
-    key: "D",
-    sample: "pause",
-  },
-  {
-    key: "Z",
-    sample: "pipe",
-  },
-  {
-    key: "X",
-    sample: "powerup",
-  },
-  {
-    key: "C",
-    sample: "stageclear",
-  },
-];
-
 function SFXPlayer() {
+  // Dialog Box
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
+  const openDialog = () => {
+    setDialogIsOpen(true);
+  };
+
+  const closeDialog = () => {
+    setDialogIsOpen(false);
+  };
 
   const stopSoundsAndPlayElement = (element) => {
     let sounds = document.getElementsByTagName("audio");
@@ -139,15 +109,6 @@ function SFXPlayer() {
         break;
     }
   }, []);
-
-  // Dialog Box
-  const openDialog = () => {
-    setDialogIsOpen(true);
-  };
-
-  const closeDialog = () => {
-    setDialogIsOpen(false);
-  };
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
