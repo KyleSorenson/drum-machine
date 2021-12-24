@@ -15,28 +15,65 @@ import {
 
 import { Info } from "@mui/icons-material";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function SFXPlayer() {
-  // Dialog Box
+  // ----------- Dialog Box ----------- //
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
-  function openDialog() {
+  const openDialog = () => {
     setDialogIsOpen(true);
-  }
+  };
 
-  function closeDialog() {
+  const closeDialog = () => {
     setDialogIsOpen(false);
-  }
+  };
 
-  // Drum Pad
+  // ----------- Drum Pad ----------- //
   const [sample, setSample] = useState("none");
 
-  function fetchSample(key) {
+  // Searches pad layout for key that was pressed
+  // Returns the name of the audio sample mapped to that key
+  const fetchSample = (key) => {
     const found = padLayout.find((drumpad) => drumpad.key === key);
+    // if found exists, return found.sample
     return found && found.sample;
-  }
+  };
 
+  const updateDisplay = useCallback((key) => {
+    // if fetched sample exists, set sample to the fetched sample
+    fetchSample(key) && setSample(fetchSample(key));
+  }, []);
+
+  const triggerAudio = (key) => {
+    // If key is not in pad layout, do nothin
+    if (!document.getElementById(key)) return;
+
+    let sounds = document.getElementsByTagName("audio");
+    for (let i = 0; i < sounds.length; i++) {
+      sounds[i].load();
+    }
+
+    document.getElementById(key).play();
+  };
+
+  const setButtonFocus = useCallback((key) => {
+    // If key is not in pad layout, do nothing
+    if (!document.getElementById(fetchSample(key))) return;
+
+    // Resets item by "blurring" and refocusing
+    // (So the animation will trigger with each key press)
+    document.getElementById(fetchSample(key)).blur();
+    document.getElementById(fetchSample(key)).focus();
+  }, []);
+
+  // Handles User clicking buttons with mouse
+  const handleClick = (key) => {
+    triggerAudio(key);
+    updateDisplay(key);
+  };
+
+  // Handles user pressing keys on keyboard
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
 
@@ -51,32 +88,6 @@ function SFXPlayer() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [sample, setButtonFocus, updateDisplay]);
-
-  function handleClick(key) {
-    triggerAudio(key);
-    updateDisplay(key);
-  }
-
-  function updateDisplay(key) {
-    fetchSample(key) && setSample(fetchSample(key));
-  }
-
-  function triggerAudio(key) {
-    if (!document.getElementById(key)) return;
-
-    let sounds = document.getElementsByTagName("audio");
-    for (let i = 0; i < sounds.length; i++) {
-      sounds[i].load();
-    }
-
-    document.getElementById(key).play();
-  }
-
-  function setButtonFocus(key) {
-    if (!document.getElementById(fetchSample(key))) return;
-    document.getElementById(fetchSample(key)).blur();
-    document.getElementById(fetchSample(key)).focus();
-  }
 
   return (
     <Container maxWidth="sm" id="drum-machine" component="main">

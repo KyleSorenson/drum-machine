@@ -8,6 +8,6 @@ Created using [React](https://reactjs.org/) and [Material UI](https://mui.com)
 
 ### Features To Implement
 
-- Mapping function to display buttons
-- Revise structure / refactor code
-- Implement state changes for the display and add images
+- ~~Mapping function to display buttons~~
+- ~~Revise structure / refactor code~~
+- ~~Implement state changes for the display and add images~~

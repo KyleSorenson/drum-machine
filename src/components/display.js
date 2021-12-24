@@ -1,6 +1,7 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import { display, styled } from "@mui/system";
+import { styled } from "@mui/system";
 
+// Styled img component
 const Sprite = styled("img")({
   maxHeight: 16,
   marginLeft: 20,
@@ -8,6 +9,8 @@ const Sprite = styled("img")({
   marginBottom: 2,
 });
 
+// Functional component that conditionally renders
+// on sample change
 const Screen = ({ sample }) => {
   if (sample === "none") {
     return <>↓ PRESS A BUTTON ↓</>;
