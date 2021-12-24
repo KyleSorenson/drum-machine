@@ -28,7 +28,6 @@ ReactDOM.render(
           }}
         />
 
-        {/* <App /> */}
         <SFXPlayer />
 
         <div

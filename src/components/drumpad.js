@@ -1,10 +1,10 @@
 import { Button, Typography } from "@mui/material";
 
-function DrumPad({ padKey, padSample, padHandler }) {
+function DrumPad({ padKey, padSample, clickHandler }) {
   return (
     <Button
       id={padSample}
-      onClick={padHandler}
+      onClick={clickHandler}
       className="drum-pad"
       variant="contained"
       fullWidth={true}
