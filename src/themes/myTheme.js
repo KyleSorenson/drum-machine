@@ -11,6 +11,7 @@ const myTheme = createTheme({
     secondary: blueGrey,
   },
   typography: {
+    fontSize: 12,
     // fontFamily: "'Play', sans-serif",
     fontFamily: "'Press Start 2P', cursive",
     // fontFamily: "'Quantico', sans-serif",
